@@ -11,23 +11,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  final TextEditingController city = TextEditingController();
-  final TextEditingController temp = TextEditingController();
-  final TextEditingController cond = TextEditingController();
-  final TextEditingController hum = TextEditingController();
-  final TextEditingController wind = TextEditingController();
-  final TextEditingController real = TextEditingController();
-  final TextEditingController aqi = TextEditingController();
-  final TextEditingController uv = TextEditingController();
-  final TextEditingController dew = TextEditingController();
   String api = "https://sugoi-api.vercel.app/weather?q=";
 
-  void fetchData() async{
-    Uri apiurl = Uri.parse(api + city.text);
+  void fetchData(String city) async{ print("hi");
+    Uri apiurl = Uri.parse(api + city);
+    print(apiurl);
     http.Response response = await http.get(apiurl);
     String body = response.body;
     dynamic data = json.decode(body);
-    String link = 
+    print(body);
+    // String link =
 
   }
 
@@ -42,17 +35,17 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextField(
-                  controller: city,
+                  onSubmitted: fetchData,
                   decoration: InputDecoration(
                     hintText: 'Search for a city',
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(32),
-                      topRight: Radius.circular(32),
-                      bottomLeft: Radius.circular(32),
-                      bottomRight: Radius.circular(32),
-                    )),
+                          topLeft: Radius.circular(32),
+                          topRight: Radius.circular(32),
+                          bottomLeft: Radius.circular(32),
+                          bottomRight: Radius.circular(32),
+                        )),
                   ),
                 ),
               ],
@@ -112,20 +105,20 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("15",
-                              style: TextStyle(
+                            children: [
+                              Text("15",
+                                style: TextStyle(
                                   fontSize: 35,
                                   color: Colors.white,
+                                ),
                               ),
-                            ),
-                            Text("%",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),
-                            )
-                          ]
+                              Text("%",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              )
+                            ]
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
